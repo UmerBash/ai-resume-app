@@ -18,10 +18,8 @@ const Sidebar = () => {
         <aside className="w-64 h-screen fixed left-0 top-0 bg-slate-900 border-r border-white/5 flex flex-col z-40 hidden md:flex">
             <div className="p-6">
                 <Link to="/" className="flex items-center gap-2 mb-8 group">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500 p-0.5 group-hover:shadow-glow transition-all duration-300 overflow-hidden">
-                        <div className="w-full h-full bg-slate-950 rounded-[6px] flex items-center justify-center overflow-hidden">
-                            <img src="/logo.png" alt="Logo" className="w-6 h-6 object-contain" />
-                        </div>
+                    <div className="w-10 h-10 rounded-xl bg-slate-900/50 flex items-center justify-center overflow-hidden border border-white/10 group-hover:border-primary-500/50 transition-all duration-300">
+                        <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
                     </div>
                     <span className="text-lg font-display font-bold text-white">AI Resume</span>
                 </Link>

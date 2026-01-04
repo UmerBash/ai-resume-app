@@ -64,10 +64,8 @@ const Login = () => {
             <div className="glass-card w-full max-w-md p-8 rounded-2xl relative z-10 border border-white/10">
                 <div className="text-center mb-8">
                     <Link to="/" className="inline-flex items-center gap-2 mb-6 group">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-primary p-0.5 overflow-hidden">
-                            <div className="w-full h-full bg-slate-950 rounded-[6px] flex items-center justify-center overflow-hidden">
-                                <img src="/logo.png" alt="Logo" className="w-6 h-6 object-contain" />
-                            </div>
+                        <div className="w-12 h-12 rounded-xl bg-slate-900/50 flex items-center justify-center overflow-hidden border border-white/10">
+                            <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
                         </div>
                         <span className="text-lg font-display font-bold">AI Resume</span>
                     </Link>

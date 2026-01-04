@@ -6,10 +6,8 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                 {/* Logo */}
                 <Link to="/" className="flex items-center gap-2 group">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-primary p-0.5 group-hover:shadow-glow transition-all duration-300 overflow-hidden">
-                        <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center overflow-hidden">
-                            <img src="/logo.png" alt="Logo" className="w-8 h-8 object-contain" />
-                        </div>
+                    <div className="w-12 h-12 rounded-xl bg-slate-900/50 flex items-center justify-center overflow-hidden border border-white/10 group-hover:border-primary-500/50 transition-all duration-300">
+                        <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
                     </div>
                     <span className="text-xl font-display font-bold tracking-tight">
                         AI <span className="text-primary-500">Resume</span>

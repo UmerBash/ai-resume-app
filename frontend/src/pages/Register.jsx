@@ -99,7 +99,7 @@ const Register = () => {
                         <div className="w-12 h-12 rounded-xl bg-slate-900/50 flex items-center justify-center overflow-hidden border border-white/10">
                             <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
                         </div>
-                        <span className="text-lg font-display font-bold">AI Resume</span>
+                        <span className="text-lg font-display font-bold">Resume-AI</span>
                     </Link>
                     <h2 className="text-3xl font-display font-bold mb-2">Get Started</h2>
                     <p className="text-slate-400">Create your account to start analyzing</p>

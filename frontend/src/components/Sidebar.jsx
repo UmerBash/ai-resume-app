@@ -21,7 +21,7 @@ const Sidebar = () => {
                     <div className="w-10 h-10 rounded-xl bg-slate-900/50 flex items-center justify-center overflow-hidden border border-white/10 group-hover:border-primary-500/50 transition-all duration-300">
                         <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
                     </div>
-                    <span className="text-lg font-display font-bold text-white">AI Resume</span>
+                    <span className="text-lg font-display font-bold text-white">Resume-AI</span>
                 </Link>
             </div>
 

@@ -10,7 +10,7 @@ const Navbar = () => {
                         <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
                     </div>
                     <span className="text-xl font-display font-bold tracking-tight">
-                        AI <span className="text-primary-500">Resume</span>
+                        Resume-<span className="text-primary-500">AI</span>
                     </span>
                 </Link>
 

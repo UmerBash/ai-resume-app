@@ -12,7 +12,7 @@ const Navbar = () => {
                         </div>
                     </div>
                     <span className="text-xl font-display font-bold tracking-tight">
-                        Resume<span className="text-primary-500">AI</span>
+                        AI <span className="text-primary-500">Resume</span>
                     </span>
                 </Link>
 

@@ -52,7 +52,7 @@ const LandingPage = () => {
             <section className="py-24 px-6 relative" id="features">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">Why Choose ResumeAI?</h2>
+                        <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">Why Choose AI Resume?</h2>
                         <p className="text-slate-400">Advanced analysis that goes beyond simple keyword matching.</p>
                     </div>
 

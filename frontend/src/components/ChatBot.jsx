@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import api from '../utils/api';
+import ReactMarkdown from 'react-markdown';
 
 const ChatBot = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -28,14 +29,12 @@ const ChatBot = () => {
         try {
             // Get context from localStorage (set by JobMatch or ResumeUpload)
             const resumeText = localStorage.getItem('lastResumeText');
-            // Note: In a more complex app, we'd use a shared state/context for JD and match results
 
             const response = await api.post('/resume/chat', {
                 message: userMessage.content,
                 history: chatHistory,
                 context: {
                     resumeText,
-                    // We could add more context here if stored in localStorage
                 }
             });
 
@@ -101,12 +100,26 @@ const ChatBot = () => {
                                 className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                             >
                                 <div
-                                    className={`max-w-[80%] p-3 rounded-2xl text-sm ${msg.role === 'user'
+                                    className={`max-w-[85%] p-4 rounded-2xl text-sm ${msg.role === 'user'
                                         ? 'bg-primary-600 text-white rounded-tr-none'
                                         : 'bg-slate-800 text-slate-200 rounded-tl-none border border-white/5'
                                         }`}
                                 >
-                                    {msg.content}
+                                    {msg.role === 'user' ? (
+                                        msg.content
+                                    ) : (
+                                        <ReactMarkdown
+                                            className="prose prose-invert prose-sm max-w-none prose-p:leading-relaxed prose-pre:bg-slate-900/50 prose-pre:p-2 prose-pre:rounded-lg"
+                                            components={{
+                                                h3: ({ node, ...props }) => <h3 className="text-primary-400 font-bold mt-2 mb-1" {...props} />,
+                                                ul: ({ node, ...props }) => <ul className="list-disc pl-4 space-y-1 mb-2" {...props} />,
+                                                li: ({ node, ...props }) => <li className="text-slate-300" {...props} />,
+                                                strong: ({ node, ...props }) => <span className="font-bold text-white" {...props} />,
+                                            }}
+                                        >
+                                            {msg.content}
+                                        </ReactMarkdown>
+                                    )}
                                 </div>
                             </div>
                         ))}

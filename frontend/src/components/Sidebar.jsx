@@ -10,19 +10,31 @@ const navItems = [
     { name: 'Settings', path: '/settings', icon: '⚙️' },
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, onClose }) => {
     const location = useLocation();
     const { user, logout } = useAuth();
 
     return (
-        <aside className="w-64 h-screen fixed left-0 top-0 bg-slate-900 border-r border-white/5 flex flex-col z-40 hidden md:flex">
-            <div className="p-6">
-                <Link to="/" className="flex items-center gap-2 mb-8 group">
+        <aside className={`
+            fixed top-0 left-0 h-screen w-64 bg-slate-900 border-r border-white/5 flex flex-col z-40
+            transition-transform duration-300 ease-in-out md:translate-x-0
+            ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+        `}>
+            <div className="p-6 flex items-center justify-between">
+                <Link to="/" className="flex items-center gap-2 group">
                     <div className="w-10 h-10 rounded-xl bg-slate-900/50 flex items-center justify-center overflow-hidden border border-white/10 group-hover:border-primary-500/50 transition-all duration-300">
                         <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
                     </div>
                     <span className="text-lg font-display font-bold text-white">Resume-AI</span>
                 </Link>
+
+                {/* Close Button (Mobile Only) */}
+                <button
+                    onClick={onClose}
+                    className="md:hidden p-2 text-slate-400 hover:text-white"
+                >
+                    ✕
+                </button>
             </div>
 
             <nav className="flex-1 px-4 space-y-2 overflow-y-auto">
@@ -32,6 +44,7 @@ const Sidebar = () => {
                         <Link
                             key={item.path}
                             to={item.path}
+                            onClick={() => onClose && onClose()} // Close on navigation
                             className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 group ${isActive
                                 ? 'bg-primary-500/10 text-primary-400 border border-primary-500/20'
                                 : 'text-slate-400 hover:text-white hover:bg-white/5'
@@ -46,7 +59,7 @@ const Sidebar = () => {
 
             <div className="p-4 border-t border-white/5">
                 <div className="flex items-center justify-between mb-4 px-2">
-                    <Link to="/settings" className="flex items-center gap-3 hover:bg-white/5 p-2 rounded-xl transition-colors flex-1 overflow-hidden group">
+                    <Link to="/settings" onClick={() => onClose && onClose()} className="flex items-center gap-3 hover:bg-white/5 p-2 rounded-xl transition-colors flex-1 overflow-hidden group">
                         <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-primary-500 to-accent-500 flex items-center justify-center font-bold text-xs shrink-0">
                             {user?.name?.charAt(0).toUpperCase()}
                         </div>

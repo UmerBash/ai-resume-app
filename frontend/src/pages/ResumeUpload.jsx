@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Sidebar from '../components/Sidebar';
+import DashboardLayout from '../components/DashboardLayout';
 import { uploadResume } from '../hooks/useResume';
 
 const UploadZone = ({ onFileSelect }) => {
@@ -128,108 +128,105 @@ const ResumeUpload = () => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-950 text-white flex">
+        <DashboardLayout>
             {isScanning && <ScanningAnimation />}
-            <Sidebar />
-            <main className="flex-1 md:ml-64 p-8">
-                <header className="mb-8">
-                    <h1 className="text-3xl font-display font-bold">New Analysis</h1>
-                    <p className="text-slate-400">Upload a resume to get started</p>
-                </header>
+            <header className="mb-8">
+                <h1 className="text-3xl font-display font-bold">New Analysis</h1>
+                <p className="text-slate-400">Upload a resume to get started</p>
+            </header>
 
-                <div className="max-w-4xl mx-auto mt-12">
-                    {!result ? (
-                        <>
-                            <UploadZone onFileSelect={handleFile} />
-                            {error && <div className="mt-4 p-4 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl">{error}</div>}
+            <div className="max-w-4xl mx-auto mt-12">
+                {!result ? (
+                    <>
+                        <UploadZone onFileSelect={handleFile} />
+                        {error && <div className="mt-4 p-4 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl">{error}</div>}
 
-                            <div className="mt-12 grid md:grid-cols-2 gap-8 opacity-50 pointer-events-none">
-                                <div className="p-6 border border-white/5 rounded-2xl bg-white/5">
-                                    <h3 className="font-bold mb-2">Match with Job Description</h3>
-                                    <p className="text-sm text-slate-400">Paste a JD url or text to see how well you fit.</p>
-                                </div>
-                                <div className="p-6 border border-white/5 rounded-2xl bg-white/5">
-                                    <h3 className="font-bold mb-2">Compare Profiles</h3>
-                                    <p className="text-sm text-slate-400">Compare multiple resumes against one job.</p>
-                                </div>
+                        <div className="mt-12 grid md:grid-cols-2 gap-8 opacity-50 pointer-events-none">
+                            <div className="p-6 border border-white/5 rounded-2xl bg-white/5">
+                                <h3 className="font-bold mb-2">Match with Job Description</h3>
+                                <p className="text-sm text-slate-400">Paste a JD url or text to see how well you fit.</p>
                             </div>
-                        </>
-                    ) : (
-                        <div className="glass-card p-8 rounded-2xl animate-fade-in-up">
-                            <div className="flex items-center justify-between mb-6">
-                                <h2 className="text-2xl font-bold text-emerald-400">Analysis Complete</h2>
-                                <button onClick={() => setResult(null)} className="text-sm text-slate-400 hover:text-white">Upload Another</button>
-                            </div>
-                            <div className="space-y-6">
-                                {/* Score and Summary */}
-                                <div className="grid md:grid-cols-3 gap-6">
-                                    <div className="col-span-1 bg-slate-900/50 p-6 rounded-2xl border border-white/10 flex flex-col items-center justify-center text-center">
-                                        <div className="relative w-32 h-32 mb-4">
-                                            <svg className="w-full h-full" viewBox="0 0 36 36">
-                                                <path
-                                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                                    fill="none"
-                                                    stroke="#1e293b"
-                                                    strokeWidth="3"
-                                                />
-                                                <path
-                                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                                    fill="none"
-                                                    stroke="#6366f1"
-                                                    strokeWidth="3"
-                                                    strokeDasharray={`${result.data.analysis.score}, 100`}
-                                                    className="animate-[spin_1s_ease-out_reverse]"
-                                                />
-                                            </svg>
-                                            <div className="absolute inset-0 flex items-center justify-center flex-col">
-                                                <span className="text-3xl font-bold">{result.data.analysis.score}</span>
-                                                <span className="text-xs text-slate-400">SCORE</span>
-                                            </div>
-                                        </div>
-                                        <h3 className="font-bold text-lg">Resume Score</h3>
-                                    </div>
-                                    <div className="col-span-2 bg-slate-900/50 p-6 rounded-2xl border border-white/10">
-                                        <h3 className="text-lg font-bold mb-3 text-purple-400">Professional Summary</h3>
-                                        <p className="text-slate-300 leading-relaxed text-sm">
-                                            {result.data.analysis.summary}
-                                        </p>
-                                    </div>
-                                </div>
-
-                                {/* Skills */}
-                                <div className="bg-slate-900/50 p-6 rounded-2xl border border-white/10">
-                                    <h3 className="text-lg font-bold mb-4 text-cyan-400">Detected Skills</h3>
-                                    <div className="flex flex-wrap gap-2">
-                                        {result.data.analysis.skills.map((skill, index) => (
-                                            <span key={index} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-sm text-slate-300 hover:bg-white/10 transition-colors">
-                                                {skill}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Improvements */}
-                                <div className="bg-slate-900/50 p-6 rounded-2xl border border-white/10">
-                                    <h3 className="text-lg font-bold mb-4 text-rose-400">Recommended Improvements</h3>
-                                    <ul className="space-y-3">
-                                        {result.data.analysis.improvements.map((item, index) => (
-                                            <li key={index} className="flex items-start gap-3 text-sm text-slate-300">
-                                                <span className="text-rose-400 mt-1">⚠️</span>
-                                                {item}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-
-                                <div className="text-center pt-4">
-                                    <p className="text-xs text-slate-500 mb-4">Analysis powered by Google Gemini 1.5 Flash</p>
-                                </div>
+                            <div className="p-6 border border-white/5 rounded-2xl bg-white/5">
+                                <h3 className="font-bold mb-2">Compare Profiles</h3>
+                                <p className="text-sm text-slate-400">Compare multiple resumes against one job.</p>
                             </div>
                         </div>
-                    )}
-                </div>
-            </main>
-        </div>
+                    </>
+                ) : (
+                    <div className="glass-card p-8 rounded-2xl animate-fade-in-up">
+                        <div className="flex items-center justify-between mb-6">
+                            <h2 className="text-2xl font-bold text-emerald-400">Analysis Complete</h2>
+                            <button onClick={() => setResult(null)} className="text-sm text-slate-400 hover:text-white">Upload Another</button>
+                        </div>
+                        <div className="space-y-6">
+                            {/* Score and Summary */}
+                            <div className="grid md:grid-cols-3 gap-6">
+                                <div className="col-span-1 bg-slate-900/50 p-6 rounded-2xl border border-white/10 flex flex-col items-center justify-center text-center">
+                                    <div className="relative w-32 h-32 mb-4">
+                                        <svg className="w-full h-full" viewBox="0 0 36 36">
+                                            <path
+                                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                                fill="none"
+                                                stroke="#1e293b"
+                                                strokeWidth="3"
+                                            />
+                                            <path
+                                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                                fill="none"
+                                                stroke="#6366f1"
+                                                strokeWidth="3"
+                                                strokeDasharray={`${result.data.analysis.score}, 100`}
+                                                className="animate-[spin_1s_ease-out_reverse]"
+                                            />
+                                        </svg>
+                                        <div className="absolute inset-0 flex items-center justify-center flex-col">
+                                            <span className="text-3xl font-bold">{result.data.analysis.score}</span>
+                                            <span className="text-xs text-slate-400">SCORE</span>
+                                        </div>
+                                    </div>
+                                    <h3 className="font-bold text-lg">Resume Score</h3>
+                                </div>
+                                <div className="col-span-2 bg-slate-900/50 p-6 rounded-2xl border border-white/10">
+                                    <h3 className="text-lg font-bold mb-3 text-purple-400">Professional Summary</h3>
+                                    <p className="text-slate-300 leading-relaxed text-sm">
+                                        {result.data.analysis.summary}
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Skills */}
+                            <div className="bg-slate-900/50 p-6 rounded-2xl border border-white/10">
+                                <h3 className="text-lg font-bold mb-4 text-cyan-400">Detected Skills</h3>
+                                <div className="flex flex-wrap gap-2">
+                                    {result.data.analysis.skills.map((skill, index) => (
+                                        <span key={index} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-sm text-slate-300 hover:bg-white/10 transition-colors">
+                                            {skill}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Improvements */}
+                            <div className="bg-slate-900/50 p-6 rounded-2xl border border-white/10">
+                                <h3 className="text-lg font-bold mb-4 text-rose-400">Recommended Improvements</h3>
+                                <ul className="space-y-3">
+                                    {result.data.analysis.improvements.map((item, index) => (
+                                        <li key={index} className="flex items-start gap-3 text-sm text-slate-300">
+                                            <span className="text-rose-400 mt-1">⚠️</span>
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+
+                            <div className="text-center pt-4">
+                                <p className="text-xs text-slate-500 mb-4">Analysis powered by Google Gemini 1.5 Flash</p>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </DashboardLayout>
     );
 };
 
